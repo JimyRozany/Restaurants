@@ -10,11 +10,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Category extends Model
 {
     use HasFactory;
-
-    /**
-     * $table->unsignedBigInteger('menu_id');
-            $table->string('category_name');
-     */
     protected $fillable = [
         'menu_id',
         'category_name',

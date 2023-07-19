@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Menu;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Restaurant extends Authenticatable implements JWTSubject
 {
@@ -43,5 +44,17 @@ class Restaurant extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    /***************** relationships *************** */
+
+    public function menu()
+    {
+        return $this->hasOne(Menu::class);
+    }
+    public function categories()
+    {
+        return $this->hasManyThrough(Category::class ,Menu::class);
+        // return $this->hasManyThrough(Category::class ,Menu::class);
     }
 }

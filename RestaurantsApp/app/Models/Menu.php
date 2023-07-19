@@ -32,5 +32,9 @@ class Menu extends Model
     {
         return $this->hasMany(Dish::class);
     }
+    public function extras ()
+    {
+        return $this->hasMany(Extra::class);
+    }
 
 }

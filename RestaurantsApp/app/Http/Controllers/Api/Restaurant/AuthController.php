@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Restaurant;
 
+use App\Models\Menu;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -30,7 +31,14 @@ class AuthController extends Controller
             'verified' => false,
             'status' => 'open',
         ]);
-
+          // create initial menu first time
+            if(! $restaurant->menu ){
+                $menu = Menu::create([
+                    'restaurant_id' => $restaurant->id,
+                    'menu_name' => $restaurant->restaurant_name,
+                    'menu_photo' => $restaurant->restaurant_photo,
+                ]);
+            }
         return response()->json([
             'status' => 'success',
             'message' => 'Registration is done and waiting for administrator verification',

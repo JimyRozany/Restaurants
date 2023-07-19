@@ -10,16 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 class JwtMiddleware
 {
    
-    public function handle(Request $request, Closure $next ,$guard = null): Response
+    public function handle(Request $request, Closure $next): Response
     {
-        $guard = is_null($guard) ? 'user-guard' : $guard ;
-        if(!auth()->guard($guard)->check())
-        {
-            return response()->json([
-                'message' => 'Unauthorized'
-            ],401);
-        }
-
         try {
             $user = JWTAuth::parseToken()->authenticate();
         } catch (\Exception $e) {

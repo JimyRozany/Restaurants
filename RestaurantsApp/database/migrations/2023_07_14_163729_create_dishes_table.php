@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('menu_id');
             $table->unsignedBigInteger('category_id');
             $table->string('name');
-            $table->decimal('price' ,3,2);
+            $table->decimal('price');
             $table->integer('time');
             $table->text('description');
             $table->string('photo');
