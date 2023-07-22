@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\PublicController;
 use App\Http\Controllers\Api\Restaurant\FoodController;
 use App\Http\Controllers\Api\User\AuthController as AuhtUserController;
 use App\Http\Controllers\Api\Restaurant\AuthController as AuhtRestaurantController;
+use App\Http\Controllers\Api\Restaurant\OrderController;
+use App\Http\Controllers\Api\User\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +32,7 @@ use App\Http\Controllers\Api\Restaurant\AuthController as AuhtRestaurantControll
     Route::post('all-restaurants' ,[PublicController::class,'allRestaurants']);
     Route::post('dishes-in-category' ,[PublicController::class,'dishesByCategory']);
     Route::post('dishes-in-menu' ,[PublicController::class,'dishesByMenu']);
+
 });
  /*  ********* end Public Routes ******** */
  /*  ********* Admin Routes ******** */
@@ -46,6 +49,9 @@ Route::post('user-register' ,[AuhtUserController::class ,'register']);
 Route::post('user-login' ,[AuhtUserController::class ,'login']);
 Route::middleware(['jwt.verify' ,'checkGuard:user-guard'])->group(function () {
     Route::post('user-logout' ,[AuhtUserController::class ,'logout']);
+    Route::post('make-order' ,[UserController::class,'makeOrder']);
+    Route::post('my-orders' ,[UserController::class,'getMyOrders']);
+    Route::post('order-details' ,[UserController::class,'orderDetails']);
 });
  /*  ********* end User Routes ******** */
 
@@ -61,13 +67,18 @@ Route::middleware(['jwt.verify' ,'checkGuard:restaurant-guard'])->group(function
         Route::post('add-dish' ,[FoodController::class ,'addDish']);
         Route::post('edit-dish' ,[FoodController::class ,'editDish']);
         Route::post('delete-dish' ,[FoodController::class ,'destroy']);
+       /** ********* Extra routes ***********  */
         Route::post('add-extra' ,[FoodController::class ,'addExtra']);
         Route::post('edit-extra' ,[FoodController::class ,'editExtra']);
         Route::post('delete-extra' ,[FoodController::class ,'removeExtra']);
         
+        /** ********* order routes ***********  */
+        Route::post('all-orders' ,[OrderController::class ,'myOrders']);
+        Route::post('edit-order' ,[OrderController::class ,'myOrders']);
+
     });
 });
- /*  ********* end User Routes ******** */
+ /*  ********* end Restaurant Routes ******** */
 
 
 //  test 

@@ -57,4 +57,11 @@ class Restaurant extends Authenticatable implements JWTSubject
         return $this->hasManyThrough(Category::class ,Menu::class);
         // return $this->hasManyThrough(Category::class ,Menu::class);
     }
+
+    public function orders (){
+        return $this->hasMany(Order::class);
+    }
+    public function orderItems (){
+        return $this->hasManyThrough(OrderItem::class ,Order::class);
+    }
 }
